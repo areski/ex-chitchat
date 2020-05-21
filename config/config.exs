@@ -16,11 +16,14 @@ config :chit_chat, ChitChatWeb.Endpoint,
   secret_key_base: "gGS3NOTzNEB3gjanSarYMN/BjnNiMnSuV/6Jo2EyClhNRk5vg3bt4/O3Pj4H4Bq1",
   render_errors: [view: ChitChatWeb.ErrorView, accepts: ~w(html json), layout: false],
   pubsub_server: ChitChat.PubSub,
-  live_view: [signing_salt: "JOOvbotZ"]
+  live_view: [signing_salt: "JOOvbotZ"],
+  reloadable_compilers: [:gettext, :phoenix, :elixir]
+  # reloadable_apps: [:phoenix, :elixir]
+
 
 # Configures Elixir's Logger
 config :logger, :console,
-  format: "$time $metadata[$level] $message\n",
+  format: "$time $metadata[$level] - 2 $message\n",
   metadata: [:request_id]
 
 # Use Jason for JSON parsing in Phoenix
@@ -29,3 +32,6 @@ config :phoenix, :json_library, Jason
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"
+
+# Import kaffy config
+import_config "kaffy.exs"

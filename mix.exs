@@ -46,7 +46,11 @@ defmodule ChitChat.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:comeonin, "~> 5.3"},
-      {:argon2_elixir, "~> 2.3"}
+      {:argon2_elixir, "~> 2.3"},
+      # exsync will recompile dependencies when changing it
+      {:exsync, "~> 0.2", only: :dev},
+      # {:kaffy, "~> 0.6.0"}
+      {:kaffy, path: "/home/areski/projects/phoenix/kaffy"}
     ]
   end
 

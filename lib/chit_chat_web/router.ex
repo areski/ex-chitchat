@@ -1,5 +1,7 @@
 defmodule ChitChatWeb.Router do
   use ChitChatWeb, :router
+  use Kaffy.Routes, scope: "/admin"
+  # , pipe_through: [:some_plug, :authenticate]
 
   pipeline :browser do
     plug :accepts, ["html"]
