@@ -1,4 +1,6 @@
 defmodule ChitChatWeb.RoomAdmin do
+  alias ChitChat.Accounts
+
   def widgets(_schema, _conn) do
     [
       %{
@@ -30,4 +32,27 @@ defmodule ChitChatWeb.RoomAdmin do
       }
     ]
   end
+
+  def index(_) do
+    [
+      name: nil,
+      description: nil,
+      user: %{
+        value: fn p -> Accounts.get_user!(p.user_id).name end,
+        filters: Enum.map(Accounts.list_users(), fn c -> {c.name, c.id} end)
+      },
+
+      # username: %{
+      #   name: "Username",
+      #   value: fn p -> p.username end,
+      #   filters: [{"Areski", "areski"}, {"TestUser", "testuser"}]
+      # },
+      # # username: %{name: "User?", value: fn _ -> Enum.random(["Yes", "No"]) end},
+      date: %{
+        name: "Date Added",
+        value: fn p -> NaiveDateTime.to_string(p.inserted_at) end
+      },
+    ]
+  end
+
 end

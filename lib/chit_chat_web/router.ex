@@ -25,6 +25,7 @@ defmodule ChitChatWeb.Router do
 
     resources "/rooms", RoomController
     resources "/users", UserController
+    resources "/posts", PostController
     resources "/sessions", SessionController, only: [:new, :create, :delete], singleton: true
   end
 

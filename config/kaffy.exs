@@ -17,7 +17,7 @@ config :kaffy,
       name: "User", # a custom name for this context/section.
       schemas: [
         user: [schema: ChitChat.Accounts.User, admin: ChitChatWeb.UserAdmin],
-        credential: [schema: ChitChat.Accounts.Credential],
+        credential: [schema: ChitChat.Accounts.Credential, admin: ChitChatWeb.CredentialAdmin],
         # tag: [schema: MyApp.Blog.Tag]
       ]
     ],
@@ -25,6 +25,12 @@ config :kaffy,
       name: "Room",
       schemas: [
         category: [schema: ChitChat.Chat.Room, admin: ChitChatWeb.RoomAdmin]
+      ]
+    ],
+    blog: [
+      name: "Blog",
+      schemas: [
+        category: [schema: ChitChat.Blog.Post]
       ]
     ]
   ]
