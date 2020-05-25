@@ -24,13 +24,13 @@ config :kaffy,
     room: [
       name: "Room",
       schemas: [
-        category: [schema: ChitChat.Chat.Room, admin: ChitChatWeb.RoomAdmin]
+        room: [schema: ChitChat.Chat.Room, admin: ChitChatWeb.RoomAdmin]
       ]
     ],
     blog: [
       name: "Blog",
       schemas: [
-        category: [schema: ChitChat.Blog.Post]
+        post: [schema: ChitChat.Blog.Post, admin: ChitChatWeb.PostAdmin]
       ]
     ]
   ]

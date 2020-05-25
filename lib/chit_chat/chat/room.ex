@@ -13,8 +13,8 @@ defmodule ChitChat.Chat.Room do
   @doc false
   def changeset(room, attrs) do
     room
-    |> cast(attrs, [:name, :description])
-    |> validate_required([:name, :description])
+    |> cast(attrs, [:name, :description, :user_id])
+    |> validate_required([:name, :description, :user_id])
     |> unique_constraint(:name)
   end
 end

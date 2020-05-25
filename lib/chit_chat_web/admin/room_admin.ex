@@ -21,7 +21,7 @@ defmodule ChitChatWeb.RoomAdmin do
       },
       %{
         type: "chart",
-        title: "Room usage",
+        title: "Room's usage",
         order: 0,
         width: 12,
         content: %{
@@ -36,7 +36,7 @@ defmodule ChitChatWeb.RoomAdmin do
   def index(_) do
     [
       name: nil,
-      description: nil,
+      description: %{type: :textarea, rows: 4},
       user: %{
         value: fn p -> Accounts.get_user!(p.user_id).name end,
         filters: Enum.map(Accounts.list_users(), fn c -> {c.name, c.id} end)

@@ -4,10 +4,10 @@ defmodule ChitChat.Blog.Post do
 
   schema "posts" do
     field :body, :string
-    field :published, :boolean, default: false
+    field :published, :boolean, default: true
     field :title, :string
     field :unique_uuid, Ecto.UUID
-    field :views, :integer
+    field :views, :integer, default: 0
 
     timestamps()
   end
@@ -21,7 +21,7 @@ defmodule ChitChat.Blog.Post do
   end
 
   defp default_unique_uuid(changeset) do
-    case get_change(changeset, :unique_uuid) do
+    case get_field(changeset, :unique_uuid) do
       nil -> put_change(changeset, :unique_uuid, gen_unique_uuid())
       "" -> put_change(changeset, :unique_uuid, gen_unique_uuid())
         _ -> changeset
