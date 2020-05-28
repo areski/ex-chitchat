@@ -18,11 +18,19 @@ defmodule ChitChatWeb.PostAdmin do
     [
       title: %{label: "Post Title"},
       body: %{type: :textarea, rows: 4},
-      published: nil,
+      published: %{type: :boolean_switch},
       unique_uuid: %{create: :readonly, update: :readonly},
       # unique_uuid: %{create: :editable, update: :editable},
       views: nil,
       # views: %{permission: :read},
+    ]
+  end
+
+  def custom_links(_schema) do
+    [
+      %{name: "Liveview Live Dashboard", url: "http://0.0.0.0:4000/dashboard", order: 2, location: :top, icon: "paperclip"},
+      %{name: "Source Code", url: "https://example.com/repo/issues", order: 2, location: :top},
+      %{name: "Products On Site", url: "https://example.com/products", location: :sub, icon: "thumbs-up", target: "_blank"},
     ]
   end
 
