@@ -45,6 +45,8 @@ defmodule ChitChat.MixProject do
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
+      {:cowboy, "== 2.7.0"},
+      # {:cowboy, github: "ninenines/cowboy"},
       {:comeonin, "~> 5.3"},
       {:argon2_elixir, "~> 2.3"},
       # exsync will recompile dependencies when changing it

@@ -37,10 +37,10 @@ defmodule ChitChatWeb.RoomAdmin do
     [
       name: nil,
       description: %{type: :textarea, rows: 4},
-      user: %{
-        value: fn p -> Accounts.get_user!(p.user_id).name end,
-        filters: Enum.map(Accounts.list_users(), fn c -> {c.name, c.id} end)
-      },
+      # user: %{
+      #   value: fn p -> Accounts.get_user!(p.user_id).name end,
+      #   filters: Enum.map(Accounts.list_users(), fn c -> {c.name, c.id} end)
+      # },
 
       # username: %{
       #   name: "Username",
