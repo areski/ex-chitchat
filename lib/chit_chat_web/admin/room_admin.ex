@@ -1,6 +1,16 @@
 defmodule ChitChatWeb.RoomAdmin do
   alias ChitChat.Accounts
 
+  # def create_changeset(schema, attrs) do
+  #   # do whatever you want, must return a changeset
+  #   ChitChat.Chat.Room.create_datetime_changeset(schema, attrs)
+  # end
+
+  # def update_changeset(schema, attrs) do
+  #   # do whatever you want, must return a changeset
+  #   ChitChat.Chat.Room.create_datetime_changeset(schema, attrs)
+  # end
+
   def widgets(_schema, _conn) do
     [
       %{
@@ -41,17 +51,42 @@ defmodule ChitChatWeb.RoomAdmin do
         value: fn p -> Accounts.get_user!(p.user_id).name end,
         filters: Enum.map(Accounts.list_users(), fn c -> {c.name, c.id} end)
       },
-
       # username: %{
       #   name: "Username",
       #   value: fn p -> p.username end,
       #   filters: [{"Areski", "areski"}, {"TestUser", "testuser"}]
       # },
       # # username: %{name: "User?", value: fn _ -> Enum.random(["Yes", "No"]) end},
+      # date: %{
+      #   name: "Date Added",
+      #   value: fn p -> NaiveDateTime.to_string(p.inserted_at) end
+      # },
       date: %{
-        name: "Date Added",
-        value: fn p -> NaiveDateTime.to_string(p.inserted_at) end
+        name: "Date",
+        value: fn p -> p.naive_booking_date end
       },
+    ]
+  end
+
+
+  def form_fields(_) do
+    [
+      name: nil,
+      description: nil,
+      # user_id: nil,
+      user_id: %{choices: Enum.map(Accounts.list_users(), fn c -> {c.name, c.id} end)},
+      # inserted_at: nil,
+      naive_booking_date: %{
+        type: :naive_datetime
+      },
+      naive_usec_booking_date: %{type: :naive_datetime_usec},
+      utc_booking_date: %{type: :utc_datetime},
+      utc_usecbooking_date: %{type: :utc_datetime_usec},
+      booking_date: %{type: :date},
+      booking_time: %{type: :time},
+      # body: %{type: :textarea, rows: 4},
+      # views: %{permission: :read},
+      # settings: %{label: "Post Settings"}
     ]
   end
 

@@ -3,11 +3,13 @@ defmodule ChitChat.Blog.Post do
   import Ecto.Changeset
 
   schema "posts" do
+    field :unique_uuid, Ecto.UUID
+    field :title, :string
     field :body, :string
     field :published, :boolean, default: true
-    field :title, :string
-    field :unique_uuid, Ecto.UUID
     field :views, :integer, default: 0
+
+    many_to_many :tags, ChitChat.Blog.Tag, join_through: "posts_tags"
 
     timestamps()
   end

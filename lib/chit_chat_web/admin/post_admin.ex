@@ -23,6 +23,10 @@ defmodule ChitChatWeb.PostAdmin do
       # unique_uuid: %{create: :editable, update: :editable},
       views: nil,
       # views: %{permission: :read},
+      # tags: %{
+      #   type: :embed,
+      #   # value: fn p -> Accounts.get_user!(p.user_id).name end
+      # }
     ]
   end
 

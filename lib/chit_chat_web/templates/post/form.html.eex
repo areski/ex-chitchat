@@ -17,13 +17,25 @@
   <%= number_input f, :views %>
   <%= error_tag f, :views %>
 
+  <%= label f, :published %>
+  <%= checkbox f, :published %>
+  <%= error_tag f, :published %>
+
   <%= label f, :unique_uuid %>
   <%= text_input f, :unique_uuid %>
   <%= error_tag f, :unique_uuid %>
 
-  <%= label f, :published %>
-  <%= checkbox f, :published %>
-  <%= error_tag f, :published %>
+  <div class="form-group">
+    <%=
+      multiselect_checkboxes(
+        f,
+        :tags,
+        Enum.map(@tags, fn a -> { a.name, a.id } end),
+        selected: Enum.map(@changeset.data.tags,&(&1.id))
+      )
+    %>
+  </div>
+
 
   <div>
     <%= submit "Save" %>

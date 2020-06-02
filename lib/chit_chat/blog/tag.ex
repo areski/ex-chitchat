@@ -5,6 +5,8 @@ defmodule ChitChat.Blog.Tag do
   schema "tags" do
     field :name, :string, null: false
 
+    many_to_many :posts, ChitChat.Blog.Post, join_through: "posts_tags"
+
     timestamps()
   end
 

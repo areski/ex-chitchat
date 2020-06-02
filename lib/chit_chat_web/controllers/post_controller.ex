@@ -10,8 +10,9 @@ defmodule ChitChatWeb.PostController do
   end
 
   def new(conn, _params) do
-    changeset = Blog.change_post(%Post{})
-    render(conn, "new.html", changeset: changeset)
+    tags = Blog.list_tags()
+    changeset = Blog.change_post(%Post{tags: []})
+    render(conn, "new.html", changeset: changeset, tags: tags)
   end
 
   def create(conn, %{"post" => post_params}) do

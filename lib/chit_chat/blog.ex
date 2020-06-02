@@ -19,6 +19,7 @@ defmodule ChitChat.Blog do
   """
   def list_posts do
     Repo.all(Post)
+    |> Repo.preload(:tags)
   end
 
   @doc """
@@ -35,7 +36,7 @@ defmodule ChitChat.Blog do
       ** (Ecto.NoResultsError)
 
   """
-  def get_post!(id), do: Repo.get!(Post, id)
+  def get_post!(id), do: Repo.get!(Post, id) |> Repo.preload(:tags)
 
   @doc """
   Creates a post.
