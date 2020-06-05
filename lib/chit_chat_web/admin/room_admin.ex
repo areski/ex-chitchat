@@ -1,6 +1,19 @@
 defmodule ChitChatWeb.RoomAdmin do
   alias ChitChat.Accounts
 
+  def custom_pages(_schema, _conn) do
+    [
+      %{
+        slug: "my-own-thing",
+        name: "Secret Place",
+        view: ChitChatWeb.RoomView,
+        template: "custom-page.html",
+        assigns: [custom_message: "one two three"], # optional
+        order: 2 # optional
+      }
+    ]
+  end
+
   # def create_changeset(schema, attrs) do
   #   # do whatever you want, must return a changeset
   #   ChitChat.Chat.Room.create_datetime_changeset(schema, attrs)

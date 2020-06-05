@@ -6,6 +6,7 @@ defmodule ChitChat.Blog.Author do
     field :email, :string
     field :name, :string
     field :super_author, :boolean, default: false
+    field :url, ChitChat.CustomURLField
 
     timestamps()
   end
@@ -13,7 +14,7 @@ defmodule ChitChat.Blog.Author do
   @doc false
   def changeset(author, attrs) do
     author
-    |> cast(attrs, [:name, :email, :super_author])
-    |> validate_required([:name, :email, :super_author])
+    |> cast(attrs, [:name, :email, :super_author, :url])
+    |> validate_required([:name, :email, :super_author, :url])
   end
 end

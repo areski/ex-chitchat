@@ -30,7 +30,8 @@ config :kaffy,
     blog: [
       name: "Blog",
       schemas: [
-        post: [schema: ChitChat.Blog.Post, admin: ChitChatWeb.PostAdmin]
+        post: [schema: ChitChat.Blog.Post, admin: ChitChatWeb.PostAdmin],
+        author: [schema: ChitChat.Blog.Author, admin: ChitChatWeb.AuthorAdmin],
       ]
     ]
   ]

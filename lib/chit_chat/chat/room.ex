@@ -22,7 +22,7 @@ defmodule ChitChat.Chat.Room do
   def changeset(room, attrs) do
     room
     |> cast(attrs, [:name, :description, :user_id, :naive_booking_date, :naive_usec_booking_date, :utc_booking_date, :utc_usecbooking_date, :booking_date, :booking_time])
-    |> validate_required([:name, :description, :user_id, :naive_booking_date])
+    |> validate_required([:name, :user_id])
     |> unique_constraint(:name)
   end
 

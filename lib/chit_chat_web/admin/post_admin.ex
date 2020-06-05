@@ -1,10 +1,20 @@
 defmodule ChitChatWeb.PostAdmin do
 
+
+  def published?(p) do
+    if (p.published), do: "✅", else: "❌"
+  end
+
   def index(_) do
     [
       id: nil,
       title: nil,
-      published: nil,
+      # published: %{name: "Yes?", value: fn _ -> Enum.random(["Yes", "No"]) end},
+      published: %{
+        name: "Published?",
+        value: fn p -> published?(p) end,
+        filters: [{"Published", true}, {"Not Published", false}]
+      },
       unique_uuid: nil,
       views: nil,
       date: %{
