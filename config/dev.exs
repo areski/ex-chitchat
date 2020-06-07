@@ -30,6 +30,9 @@ config :chit_chat, ChitChatWeb.Endpoint,
     ]
   ]
 
+config :chit_chat,
+  upload_directory: "./uploads/images"
+
 # ## SSL Support
 #
 # In order to use HTTPS in development, a self-signed

@@ -23,6 +23,8 @@ defmodule ChitChatWeb.Router do
     get "/login", SessionController, :new
     get "/logout", SessionController, :delete
 
+
+    resources "/uploads", UploadController, only: [:index, :new, :create, :show]
     resources "/rooms", RoomController
     resources "/users", UserController
     resources "/posts", PostController

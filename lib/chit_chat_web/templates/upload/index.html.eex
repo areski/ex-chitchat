@@ -1,0 +1,24 @@
+<table class="table">
+    <thead>
+        <th>ID</th>
+        <th>Filename</th>
+        <th>Type</th>
+        <th>Time</th>
+    </thead>
+    <tbody>
+
+        <%= for upload <- @uploads do %>
+        <tr>
+            <td><%= upload.id %></td>
+            <td>
+                <%= upload.filename %>
+
+                <img height="100" src="<%= @upload_directory %>/<%= upload.filename %>" />
+            </td>
+            <td><%= upload.content_type %></td>
+            <td><%= upload.inserted_at %></td>
+        </tr>
+        <% end %>
+
+    </tbody>
+</table>

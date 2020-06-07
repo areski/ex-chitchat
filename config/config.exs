@@ -20,6 +20,8 @@ config :chit_chat, ChitChatWeb.Endpoint,
   reloadable_compilers: [:gettext, :phoenix, :elixir]
   # reloadable_apps: [:phoenix, :elixir]
 
+config :chit_chat,
+  upload_directory: "./uploads/images"
 
 # Configures Elixir's Logger
 config :logger, :console,
