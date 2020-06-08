@@ -1,11 +1,5 @@
 defmodule ChitChatWeb.AuthorAdmin do
 
-
-  # field :email, :string
-  # field :name, :string
-  # field :super_author, :boolean, default: false
-  # field :url, ChitChat.CustomURLField
-
   def index(_) do
     [
       id: nil,

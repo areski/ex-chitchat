@@ -2,6 +2,7 @@
     <thead>
         <th>ID</th>
         <th>Filename</th>
+        <th>Image</th>
         <th>Type</th>
         <th>Time</th>
     </thead>
@@ -12,8 +13,9 @@
             <td><%= upload.id %></td>
             <td>
                 <%= upload.filename %>
-
-                <img height="100" src="<%= @upload_directory %>/<%= upload.filename %>" />
+            </td>
+            <td>
+                <img height="100" src="<%= upload.full_filepath %>" />
             </td>
             <td><%= upload.content_type %></td>
             <td><%= upload.inserted_at %></td>

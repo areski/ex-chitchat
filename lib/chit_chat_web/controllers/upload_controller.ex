@@ -6,12 +6,9 @@ defmodule ChitChatWeb.UploadController do
   @upload_directory Application.get_env(:chit_chat, :upload_directory)
 
   def index(conn, _params) do
-    uploads = Documents.list_uploads()
-    IO.inspect("**************************************************")
-    IO.inspect(Application.get_env(:chit_chat, :upload_directory))
-    IO.inspect(@upload_directory)
+    uploads = Documents.list_uploads_full()
 
-    render(conn, "index.html", [uploads: uploads, upload_directory: @upload_directory])
+    render(conn, "index.html", uploads: uploads)
   end
 
   def new(conn, _params) do

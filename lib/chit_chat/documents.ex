@@ -1,11 +1,28 @@
 defmodule ChitChat.Documents do
-  import Ecto.Query, warn: false
+  import Ecto.Query, only: [from: 1, order_by: 2]
 
   alias ChitChat.Repo
   alias ChitChat.Documents.Upload
 
+  @upload_directory Application.get_env(:chit_chat, :upload_directory)
+
   def list_uploads do
-    Repo.all(Upload)
+    # Repo.all(Upload)
+    # query = from up in "uploads"
+    # query |> order_by({:desc, :id})
+    # Repo.all(query)
+    Upload |> order_by(desc: :id) |> Repo.all
+  end
+
+  def list_uploads_full do
+    list_uploads
+    |> callback_full_filepath
+  end
+
+  defp callback_full_filepath(uploads) do
+    Enum.map(uploads, fn up ->
+      Map.put up, :full_filepath, "#{@upload_directory}/#{up.id}-#{up.filename}"
+    end)
   end
 
   defp upload(tmp_path, filename, content_type, hash) do

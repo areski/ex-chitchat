@@ -32,6 +32,7 @@ config :kaffy,
       schemas: [
         post: [schema: ChitChat.Blog.Post, admin: ChitChatWeb.PostAdmin],
         author: [schema: ChitChat.Blog.Author, admin: ChitChatWeb.AuthorAdmin],
+        upload: [schema: ChitChat.Documents.Upload, admin: ChitChatWeb.UploadAdmin],
       ]
     ]
   ]

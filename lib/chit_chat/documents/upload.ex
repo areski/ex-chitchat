@@ -10,19 +10,16 @@ defmodule ChitChat.Documents.Upload do
     field :hash, :string
     field :size, :integer
 
-    field :stored_filename, :string, virtual: true
-
     timestamps()
   end
 
   @doc false
   def changeset(upload, attrs) do
     upload
-    |> cast(attrs, [:filename, :size, :content_type, :hash, :stored_filename])
+    |> cast(attrs, [:filename, :size, :content_type, :hash])
     |> validate_required([:filename, :size, :content_type, :hash])
     |> validate_number(:size, greater_than: 0) #doesn't allow empty files
     |> validate_length(:hash, is: 64)
-    |> put_change(:stored_filename, "HelloWorld")
   end
 
   def sha256(chunks_enum) do
