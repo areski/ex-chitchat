@@ -1,8 +1,16 @@
 
 <%= form_for @conn, Routes.upload_path(@conn, :create),
-                    [multipart: true], fn f-> %>
+                    [multipart: true, id: "upload_form"], fn f-> %>
 
     <%= file_input f, :upload, class: "form-control" %>
     <%= submit "Upload", class: "btn btn-primary" %>
+
+
+    <div class="upload-progress">
+
+        <progress max="100" value="0"></progress>
+
+        <label class="progress-percentage"></label>
+    </div>
 
 <% end %>

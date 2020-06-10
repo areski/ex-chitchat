@@ -6,6 +6,11 @@ defmodule ChitChat.Documents do
 
   @upload_directory Application.get_env(:chit_chat, :upload_directory)
 
+  def get_upload!(id) do
+    Upload
+    |> Repo.get!(id)
+  end
+
   def list_uploads do
     # Repo.all(Upload)
     # query = from up in "uploads"
@@ -15,17 +20,19 @@ defmodule ChitChat.Documents do
   end
 
   def list_uploads_full do
-    list_uploads
-    |> callback_full_filepath
+    res = list_uploads
+    |> add_full_filepath
+    IO.inspect(res)
+    res
   end
 
-  defp callback_full_filepath(uploads) do
+  defp add_full_filepath(uploads) do
     Enum.map(uploads, fn up ->
       Map.put up, :full_filepath, "#{@upload_directory}/#{up.id}-#{up.filename}"
     end)
   end
 
-  defp upload(tmp_path, filename, content_type, hash) do
+  defp upload_file(tmp_path, filename, content_type, hash) do
 
     with {:ok, %File.Stat{size: size}} <- File.stat(tmp_path),
     {:ok, upload} <-
@@ -37,7 +44,9 @@ defmodule ChitChat.Documents do
     :ok <- File.cp(
         tmp_path,
         Upload.local_path(upload.id, filename)
-    )
+    ),
+
+    {:ok, upload} <- Upload.create_thumbnail(upload) |> Repo.update()
     do
       {:ok, upload}
     else
@@ -57,7 +66,7 @@ defmodule ChitChat.Documents do
       |> Upload.sha256()
 
     Repo.transaction fn ->
-      with {:ok, upload} = upload(tmp_path, filename, content_type, hash)
+      with {:ok, upload} = upload_file(tmp_path, filename, content_type, hash)
       do
         upload
       else

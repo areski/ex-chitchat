@@ -17,6 +17,7 @@
               <li><%= link "LiveDashboard", to: Routes.live_dashboard_path(@conn, :home) %></li>
               <li><%= link "User", to: Routes.user_path(@conn, :index) %></li>
               <li><%= link "Room", to: Routes.room_path(@conn, :index) %></li>
+              <li><%= link "Upload", to: Routes.upload_path(@conn, :index) %></li>
             <% end %>
           </ul>
         </nav>

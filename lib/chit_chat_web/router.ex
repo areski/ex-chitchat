@@ -24,7 +24,9 @@ defmodule ChitChatWeb.Router do
     get "/logout", SessionController, :delete
 
 
-    resources "/uploads", UploadController, only: [:index, :new, :create, :show]
+    resources "/uploads", UploadController, only: [:index, :new, :create, :show] do
+      get "/thumbnail", UploadController, :thumbnail, as: "thumbnail"
+    end
     resources "/rooms", RoomController
     resources "/users", UserController
     resources "/posts", PostController

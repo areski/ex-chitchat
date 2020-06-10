@@ -17,3 +17,5 @@ Room.init(socket, document.getElementById("room"))
 //
 
 import "phoenix_html"
+
+import "./upload"

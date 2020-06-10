@@ -52,7 +52,8 @@ defmodule ChitChat.MixProject do
       # exsync will recompile dependencies when changing it
       {:exsync, "~> 0.2", only: :dev},
       # {:kaffy, "~> 0.6.0"}
-      {:kaffy, path: "/home/areski/projects/phoenix/kaffy/"}
+      {:kaffy, path: "/home/areski/projects/phoenix/kaffy/"},
+      {:mogrify, "~> 0.7.4"}
     ]
   end
 

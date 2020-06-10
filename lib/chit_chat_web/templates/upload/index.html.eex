@@ -1,3 +1,8 @@
+
+<%= link "Upload New File", to: Routes.upload_path(@conn, :new) %>
+<hr/>
+
+
 <table class="table">
     <thead>
         <th>ID</th>
@@ -5,6 +10,8 @@
         <th>Image</th>
         <th>Type</th>
         <th>Time</th>
+        <th>Thumb</th>
+        <th></th>
     </thead>
     <tbody>
 
@@ -15,10 +22,20 @@
                 <%= upload.filename %>
             </td>
             <td>
-                <img height="100" src="<%= upload.full_filepath %>" />
+                <img height="100" src="../<%= upload.full_filepath %>" />
             </td>
             <td><%= upload.content_type %></td>
             <td><%= upload.inserted_at %></td>
+            <td>
+                <%= if upload.thumbnail? do
+                  img_tag Routes.upload_thumbnail_path(@conn, :thumbnail, upload.id)
+                else
+                  "🚯"
+                end %>
+            </td>
+            <td>
+                <%= link "download", to: Routes.upload_path(@conn, :show, upload.id) %>
+            </td>
         </tr>
         <% end %>
 
