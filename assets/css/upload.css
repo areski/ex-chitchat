@@ -16,3 +16,14 @@ progress::-webkit-progress-value {
     background-color: #276bd1;
     border-radius: 8px;
 }
+
+
+label.progress-percentage {
+    position: absolute;
+    top: 0;
+    text-align: center;
+    width: 100%;
+    color: white;
+    font-weight: bold;
+    text-shadow: 1px 1px 1px #444;
+}
