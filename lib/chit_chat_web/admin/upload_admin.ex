@@ -1,27 +1,13 @@
 defmodule ChitChatWeb.UploadAdmin do
   alias ChitChat.Documents
 
-
-  # def before_create(conn, changeset) do
-  #   %Plug.Conn{params: %{"upload" => %{"filename" => %Plug.Upload{}=upload }}} = conn
-  #   IO.inspect("before_create===============")
-  #   IO.inspect(conn)
-  #   IO.inspect(upload)
-  #   Documents.create_upload_from_plug_upload(upload)
-  # end
-
-  # def create(conn, %{"upload" => %Plug.Upload{}=upload}) do
-  #   case Documents.create_upload_from_plug_upload(upload) do
-
-  #     {:ok, upload}->
-  #       put_flash(conn, :info, "file uploaded correctly")
-  #       redirect(conn, to: Routes.upload_path(conn, :index))
-
-  #     {:error, reason}->
-  #       put_flash(conn, :error, "error upload file: #{inspect(reason)}")
-  #       render(conn, "new.html")
-  #   end
-  # end
+  def overwritten_create(conn, changeset) do
+    IO.inspect("In overwritten_create...")
+    IO.inspect(conn.params["upload"]["filename"])
+    {:ok, res_upload} = Documents.create_upload_from_plug_upload(conn.params["upload"]["filename"])
+    IO.inspect(res_upload)
+    {:ok, res_upload}
+  end
 
   def index(_) do
     [

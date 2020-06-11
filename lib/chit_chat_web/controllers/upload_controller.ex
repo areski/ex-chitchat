@@ -22,6 +22,14 @@ defmodule ChitChatWeb.UploadController do
     render(conn, "new.html")
   end
 
+  # %{
+  #   "_csrf_token" => "ETQiOQ0TFm0mARUPJWFCH3UOB1IMZywOwNix9Ll8No_wC0-L7gWeG0VG",
+  #   "upload" => %Plug.Upload{
+  #     content_type: "image/png",
+  #     filename: "Screen Shot 2020-06-10 at 16.59.26-fullpage.png",
+  #     path: "/tmp/plug-1591/multipart-1591889555-99850314281274-3"
+  #   }
+  # }
   def create(conn, %{"upload" => %Plug.Upload{}=upload}) do
     case Documents.create_upload_from_plug_upload(upload) do
 

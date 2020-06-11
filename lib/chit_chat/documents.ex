@@ -12,18 +12,12 @@ defmodule ChitChat.Documents do
   end
 
   def list_uploads do
-    # Repo.all(Upload)
-    # query = from up in "uploads"
-    # query |> order_by({:desc, :id})
-    # Repo.all(query)
     Upload |> order_by(desc: :id) |> Repo.all
   end
 
   def list_uploads_full do
     res = list_uploads
     |> add_full_filepath
-    IO.inspect(res)
-    res
   end
 
   defp add_full_filepath(uploads) do
@@ -33,7 +27,6 @@ defmodule ChitChat.Documents do
   end
 
   defp upload_file(tmp_path, filename, content_type, hash) do
-
     with {:ok, %File.Stat{size: size}} <- File.stat(tmp_path),
     {:ok, upload} <-
       %Upload{} |> Upload.changeset(%{
@@ -70,11 +63,10 @@ defmodule ChitChat.Documents do
       do
         upload
       else
-        {:error, reason} -> Repo.rollback(reason)
+        {:error, reason} ->
+          Repo.rollback(reason)
       end
     end
-
-
   end
 
 end
