@@ -1,8 +1,16 @@
 defmodule ChitChatWeb.UploadAdmin do
   alias ChitChat.Documents
 
-  def overwritten_create(conn, changeset) do
-    IO.inspect("In overwritten_create...")
+  def insert(conn, changeset) do
+    IO.inspect("UploadAdmin:: CUSTOM INSERT")
+    IO.inspect(conn.params["upload"]["filename"])
+    {:ok, res_upload} = Documents.create_upload_from_plug_upload(conn.params["upload"]["filename"])
+    IO.inspect(res_upload)
+    {:ok, res_upload}
+  end
+
+  def update(conn, changeset) do
+    IO.inspect("UploadAdmin:: CUSTOM UPDATE")
     IO.inspect(conn.params["upload"]["filename"])
     {:ok, res_upload} = Documents.create_upload_from_plug_upload(conn.params["upload"]["filename"])
     IO.inspect(res_upload)

@@ -22,23 +22,34 @@ defmodule ChitChat.Documents do
 
   defp add_full_filepath(uploads) do
     Enum.map(uploads, fn up ->
-      Map.put up, :full_filepath, "#{@upload_directory}/#{up.id}-#{up.filename}"
+      Map.put up, :full_filepath, "#{@upload_directory}/#{up.filename}"
     end)
   end
 
-  defp upload_file(tmp_path, filename, content_type, hash) do
-    with {:ok, %File.Stat{size: size}} <- File.stat(tmp_path),
-    {:ok, upload} <-
+  defp get_unique_filename(filename) do
+    {:ok, Ecto.UUID.generate() <> "-" <> filename}
+  end
+
+  defp get_file_info(tmp_path) do
+    hash = File.stream!(tmp_path, [], 2048) |> Upload.sha256()
+    with {:ok, %File.Stat{size: size}} <- File.stat(tmp_path)
+    do
+      {:ok, [hash, size]}
+    else
+      {:error, reason}=error -> error
+    end
+  end
+
+  defp upload_file(tmp_path, filename, content_type) do
+
+    {:ok, [hash, size]} = get_file_info(tmp_path)
+
+    with {:ok, upload} <-
       %Upload{} |> Upload.changeset(%{
         filename: filename, content_type: content_type,
         hash: hash, size: size })
       |> Repo.insert(),
-
-    :ok <- File.cp(
-        tmp_path,
-        Upload.local_path(upload.id, filename)
-    ),
-
+    :ok <- File.cp(tmp_path, Upload.local_path(filename)),
     {:ok, upload} <- Upload.create_thumbnail(upload) |> Repo.update()
     do
       {:ok, upload}
@@ -54,12 +65,11 @@ defmodule ChitChat.Documents do
     content_type: content_type
   }) do
 
-    hash =
-      File.stream!(tmp_path, [], 2048)
-      |> Upload.sha256()
+    {:ok, filename} = get_unique_filename(filename)
+    IO.inspect("filename: #{inspect(filename)}")
 
     Repo.transaction fn ->
-      with {:ok, upload} = upload_file(tmp_path, filename, content_type, hash)
+      with {:ok, upload} = upload_file(tmp_path, filename, content_type)
       do
         upload
       else

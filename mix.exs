@@ -53,7 +53,8 @@ defmodule ChitChat.MixProject do
       {:exsync, "~> 0.2", only: :dev},
       # {:kaffy, "~> 0.6.0"}
       {:kaffy, path: "/home/areski/projects/phoenix/kaffy/"},
-      {:mogrify, "~> 0.7.4"}
+      {:mogrify, "~> 0.7.4"},
+      {:slugify, "~> 1.3"}
     ]
   end
 

@@ -34,13 +34,15 @@ defmodule ChitChat.Documents.Upload do
     |> String.downcase()
   end
 
-  def local_path(id, filename) do
-    [@upload_directory, "#{id}-#{filename}"]
+  def local_path(filename) do
+    [@upload_directory, "#{filename}"]
     |> Path.join()
   end
 
-  def thumbnail_path(id) do
-    [@upload_directory, "thumb-#{id}.jpg"]
+  def thumbnail_path(filename) do
+    filename_noext = Path.rootname(filename)
+    IO.inspect(filename_noext)
+    [@upload_directory, "thumb-#{filename_noext}.jpg"]
     |> Path.join()
   end
 
@@ -58,15 +60,15 @@ defmodule ChitChat.Documents.Upload do
   end
 
   def create_thumbnail(%__MODULE__{content_type: "image/" <> _img_type}=upload) do
-    original_path = local_path(upload.id, upload.filename)
-    thumb_path = thumbnail_path(upload.id)
+    original_path = local_path(upload.filename)
+    thumb_path = thumbnail_path(upload.filename)
     {:ok, _} = mogrify_thumbnail(original_path, thumb_path)
     changeset(upload, %{thumbnail?: true})
   end
 
   def create_thumbnail(%__MODULE__{content_type: "application/pdf"}=upload) do
-    original_path = local_path(upload.id, upload.filename)
-    thumb_path = thumbnail_path(upload.id)
+    original_path = local_path(upload.filename)
+    thumb_path = thumbnail_path(upload.filename)
     {:ok, _} = pdf_thumbnail(original_path, thumb_path)
     changeset(upload, %{thumbnail?: true})
   end

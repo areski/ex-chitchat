@@ -8,7 +8,7 @@ defmodule ChitChatWeb.UploadController do
 
   def show(conn, %{"id" => id}) do
     upload = Documents.get_upload!(id)
-    local_path = Upload.local_path(upload.id, upload.filename)
+    local_path = Upload.local_path(upload.filename)
     send_download conn, {:file, local_path}, filename: upload.filename
   end
 
@@ -44,7 +44,10 @@ defmodule ChitChatWeb.UploadController do
   end
 
   def thumbnail(conn, %{"upload_id" => id}) do
-    thumb_path = Upload.thumbnail_path(id)
+    upload = Documents.get_upload!(id)
+    thumb_path = Upload.thumbnail_path(upload.filename)
+    IO.inspect(thumb_path)
+
 
     conn
     |> put_resp_content_type("image/jpeg")
