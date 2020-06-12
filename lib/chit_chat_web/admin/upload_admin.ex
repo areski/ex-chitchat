@@ -4,15 +4,16 @@ defmodule ChitChatWeb.UploadAdmin do
   def insert(conn, changeset) do
     IO.inspect("UploadAdmin:: CUSTOM INSERT")
     IO.inspect(conn.params["upload"]["filename"])
-    {:ok, res_upload} = Documents.create_upload_from_plug_upload(conn.params["upload"]["filename"])
+    {:ok, res_upload} = Documents.create_upload(conn.params["upload"]["filename"])
     IO.inspect(res_upload)
     {:ok, res_upload}
   end
 
   def update(conn, changeset) do
     IO.inspect("UploadAdmin:: CUSTOM UPDATE")
+    IO.inspect(conn.params["id"])
     IO.inspect(conn.params["upload"]["filename"])
-    {:ok, res_upload} = Documents.create_upload_from_plug_upload(conn.params["upload"]["filename"])
+    {:ok, res_upload} = Documents.update_upload(conn.params["id"], conn.params["upload"]["filename"])
     IO.inspect(res_upload)
     {:ok, res_upload}
   end

@@ -31,7 +31,7 @@ defmodule ChitChatWeb.UploadController do
   #   }
   # }
   def create(conn, %{"upload" => %Plug.Upload{}=upload}) do
-    case Documents.create_upload_from_plug_upload(upload) do
+    case Documents.create_upload(upload) do
 
       {:ok, upload}->
         put_flash(conn, :info, "file uploaded correctly")

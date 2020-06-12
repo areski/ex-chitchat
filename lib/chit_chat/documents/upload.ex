@@ -59,22 +59,19 @@ defmodule ChitChat.Documents.Upload do
     end
   end
 
-  def create_thumbnail(%__MODULE__{content_type: "image/" <> _img_type}=upload) do
-    original_path = local_path(upload.filename)
-    thumb_path = thumbnail_path(upload.filename)
-    {:ok, _} = mogrify_thumbnail(original_path, thumb_path)
-    changeset(upload, %{thumbnail?: true})
+  def create_thumbnail("image/" <> _img_type, filename) do
+    original_path = local_path(filename)
+    thumb_path = thumbnail_path(filename)
+    mogrify_thumbnail(original_path, thumb_path)
   end
 
-  def create_thumbnail(%__MODULE__{content_type: "application/pdf"}=upload) do
-    original_path = local_path(upload.filename)
-    thumb_path = thumbnail_path(upload.filename)
-    {:ok, _} = pdf_thumbnail(original_path, thumb_path)
-    changeset(upload, %{thumbnail?: true})
+  def create_thumbnail("application/pdf", filename) do
+    original_path = local_path(filename)
+    thumb_path = thumbnail_path(filename)
+    pdf_thumbnail(original_path, thumb_path)
   end
 
-
-  def create_thumbnail(%__MODULE__{}=upload), do: changeset(upload, %{})
+  def create_thumbnail(_, _), do: {:ok, :nothing}
 
   def pdf_thumbnail(pdf_path, thumb_path) do
     args = ["-density", "300", "-resize",

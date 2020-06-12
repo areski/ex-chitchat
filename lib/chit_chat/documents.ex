@@ -3,6 +3,7 @@ defmodule ChitChat.Documents do
 
   alias ChitChat.Repo
   alias ChitChat.Documents.Upload
+  alias ChitChat.Documents
 
   @upload_directory Application.get_env(:chit_chat, :upload_directory)
 
@@ -40,17 +41,22 @@ defmodule ChitChat.Documents do
     end
   end
 
-  defp upload_file(tmp_path, filename, content_type) do
+  defp pre_upload_file(tmp_path, filename, content_type) do
+    File.cp(tmp_path, Upload.local_path(filename))
+    Upload.create_thumbnail(content_type, filename)
+    {:ok, ''}
+  end
 
+  def create_upload(%Plug.Upload{filename: filename, path: tmp_path, content_type: content_type}) do
+    {:ok, filename} = get_unique_filename(filename)
     {:ok, [hash, size]} = get_file_info(tmp_path)
+    {:ok, _} = pre_upload_file(tmp_path, filename, content_type)
 
     with {:ok, upload} <-
       %Upload{} |> Upload.changeset(%{
         filename: filename, content_type: content_type,
-        hash: hash, size: size })
-      |> Repo.insert(),
-    :ok <- File.cp(tmp_path, Upload.local_path(filename)),
-    {:ok, upload} <- Upload.create_thumbnail(upload) |> Repo.update()
+        hash: hash, size: size, thumbnail?: true })
+      |> Repo.insert()
     do
       {:ok, upload}
     else
@@ -58,24 +64,21 @@ defmodule ChitChat.Documents do
     end
   end
 
-  # Update creating logic
-  def create_upload_from_plug_upload(%Plug.Upload{
-    filename: filename,
-    path: tmp_path,
-    content_type: content_type
-  }) do
-
+  def update_upload(upload_id, %Plug.Upload{filename: filename, path: tmp_path, content_type: content_type}) do
     {:ok, filename} = get_unique_filename(filename)
-    IO.inspect("filename: #{inspect(filename)}")
+    {:ok, [hash, size]} = get_file_info(tmp_path)
+    {:ok, _} = pre_upload_file(tmp_path, filename, content_type)
 
-    Repo.transaction fn ->
-      with {:ok, upload} = upload_file(tmp_path, filename, content_type)
-      do
-        upload
-      else
-        {:error, reason} ->
-          Repo.rollback(reason)
-      end
+    with upload <- Documents.get_upload!(upload_id),
+      {:ok, upload} <-
+        upload |> Upload.changeset(%{
+        filename: filename, content_type: content_type,
+        hash: hash, size: size, thumbnail?: true })
+      |> Repo.update()
+    do
+      {:ok, upload}
+    else
+      {:error, reason}=error -> error
     end
   end
 
