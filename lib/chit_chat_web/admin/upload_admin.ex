@@ -18,6 +18,15 @@ defmodule ChitChatWeb.UploadAdmin do
     {:ok, res_upload}
   end
 
+  def delete(conn, changeset) do
+    IO.inspect("UploadAdmin:: CUSTOM DELETE")
+    IO.inspect(conn)
+    upload = Documents.get_upload!(conn.params["id"])
+    upload |> Repo.update()
+    {:ok, upload}
+  end
+
+
   def index(_) do
     [
       id: nil,
