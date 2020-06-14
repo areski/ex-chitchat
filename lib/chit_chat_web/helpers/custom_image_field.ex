@@ -34,7 +34,7 @@ defmodule ChitChat.CustomImageField do
         {:safe, ~s(</div>)}
       ]
     else
-      nil
+      {:safe, ''}
     end
     [
       img_div,
