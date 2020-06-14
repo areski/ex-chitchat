@@ -6,7 +6,7 @@ defmodule ChitChat.Documents.Upload do
 
   schema "uploads" do
     field :content_type, :string
-    field :filename, :string
+    field :filename, ChitChat.CustomImageField
     field :hash, :string
     field :size, :integer
     field :thumbnail?, :boolean, source: :has_thumb
@@ -41,7 +41,6 @@ defmodule ChitChat.Documents.Upload do
 
   def thumbnail_path(filename) do
     filename_noext = Path.rootname(filename)
-    IO.inspect(filename_noext)
     [@upload_directory, "thumb-#{filename_noext}.jpg"]
     |> Path.join()
   end

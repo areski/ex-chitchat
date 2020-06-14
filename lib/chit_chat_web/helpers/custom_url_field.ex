@@ -57,7 +57,7 @@ defmodule ChitChat.CustomURLField do
   end
 
   # this is how the field should be rendered on the index page
-  def render_index(resource, field, _options) do
+  def render_index(_conn, resource, field, _options) do
     case Map.get(resource, field) do
       nil ->
         ""
