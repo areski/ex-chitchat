@@ -15,13 +15,15 @@ defmodule ChitChat.Chat.Room do
     field :booking_date, :date
     field :booking_time, :time
 
+    field :cost, :decimal
+
     timestamps()
   end
 
   @doc false
   def changeset(room, attrs) do
     room
-    |> cast(attrs, [:name, :description, :user_id, :naive_booking_date, :naive_usec_booking_date, :utc_booking_date, :utc_usecbooking_date, :booking_date, :booking_time])
+    |> cast(attrs, [:name, :description, :user_id, :naive_booking_date, :naive_usec_booking_date, :utc_booking_date, :utc_usecbooking_date, :booking_date, :booking_time, :cost])
     |> validate_required([:name, :user_id])
     |> unique_constraint(:name)
   end

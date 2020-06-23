@@ -59,11 +59,14 @@ defmodule ChitChatWeb.RoomAdmin do
   def index(_) do
     [
       name: nil,
-      description: %{type: :textarea, rows: 4},
-      user: %{
-        value: fn p -> Accounts.get_user!(p.user_id).name end,
-        filters: Enum.map(Accounts.list_users(), fn c -> {c.name, c.id} end)
+      cost: %{
+        # value: fn p -> p.cost end
       },
+      description: %{type: :textarea, rows: 4},
+      # user: %{
+      #   value: fn p -> Accounts.get_user!(p.user_id).name end,
+      #   filters: Enum.map(Accounts.list_users(), fn c -> {c.name, c.id} end)
+      # },
       # username: %{
       #   name: "Username",
       #   value: fn p -> p.username end,
@@ -85,6 +88,7 @@ defmodule ChitChatWeb.RoomAdmin do
   def form_fields(_) do
     [
       name: nil,
+      cost: nil,
       description: nil,
       # user_id: nil,
       user_id: %{choices: Enum.map(Accounts.list_users(), fn c -> {c.name, c.id} end)},

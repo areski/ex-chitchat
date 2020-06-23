@@ -22,6 +22,7 @@ defmodule ChitChatWeb.CredentialAdmin do
       name: nil,
       username: %{permission: :read},
       status: %{choices: [{"Publish", "publish"}, {"Pending", "pending"}]},
+      # user: nil,
       # body: %{type: :textarea, rows: 4},
       # views: %{permission: :read},
       # settings: %{label: "Post Settings"}
