@@ -14,6 +14,14 @@ defmodule ChitChatWeb.AuthorAdmin do
     ]
   end
 
+  def form_fields(_) do
+    [
+      name: %{label: "Author Name", help_text: "Enter your full name"},
+      email: nil,
+    ]
+
+  end
+
   # def form_fields(_) do
   #   [
   #     title: %{label: "Post Title"},
