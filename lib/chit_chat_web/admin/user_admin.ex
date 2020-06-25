@@ -1,4 +1,5 @@
 defmodule ChitChatWeb.UserAdmin do
+
   def widgets(_schema, _conn) do
     [
       %{

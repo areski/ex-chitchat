@@ -1,8 +1,8 @@
 defmodule ChitChatWeb.AuthorAdmin do
 
-  # def ordering(_schema) do
-  #   [desc: :name]
-  # end
+  def ordering(_schema) do
+    [desc: :email]
+  end
 
   def index(_) do
     [

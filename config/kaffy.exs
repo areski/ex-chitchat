@@ -12,6 +12,7 @@ config :kaffy,
   otp_app: :chit_chat,
   ecto_repo: ChitChat.Repo,
   router: ChitChatWeb.Router,
+  # resources: &ChitChat.Kaffy.Resources.build_resources/1
   resources: [
     user: [
       name: "User", # a custom name for this context/section.
@@ -36,3 +37,4 @@ config :kaffy,
       ]
     ]
   ]
+

@@ -3,7 +3,7 @@ defmodule ChitChat.Blog.Author do
   import Ecto.Changeset
 
   schema "authors" do
-    field :email, :string
+    field :email, :string, help_text: "Enter a valid email address"
     field :name, :string
     field :super_author, :boolean, default: false
     field :url, ChitChat.CustomURLField
