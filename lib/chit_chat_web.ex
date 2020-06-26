@@ -74,6 +74,16 @@ defmodule ChitChatWeb do
     end
   end
 
+  def mailer_view do
+    quote do
+      use Phoenix.View,
+        root: "lib/chit_chat_web/templates",
+        namespace: ChitChatWeb
+
+      use Phoenix.HTML
+    end
+  end
+
   @doc """
   When used, dispatch to the appropriate controller/view/etc.
   """

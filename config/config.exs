@@ -23,6 +23,14 @@ config :chit_chat, ChitChatWeb.Endpoint,
 config :chit_chat,
   upload_directory: "./uploads/images"
 
+config :chit_chat, :pow,
+  user: ChitChat.Accounts.Account,
+  repo: ChitChat.Repo,
+  extensions: [PowResetPassword, PowEmailConfirmation],
+  # controller_callbacks: Pow.Extension.Phoenix.ControllerCallbacks
+  mailer_backend: ChitChatWeb.Pow.Mailer,
+  web_mailer_module: ChitChatWeb
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] - 2 $message\n",

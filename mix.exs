@@ -54,7 +54,8 @@ defmodule ChitChat.MixProject do
       # {:kaffy, "~> 0.6.0"}
       {:kaffy, path: "/home/areski/projects/phoenix/kaffy/"},
       {:mogrify, "~> 0.7.4"},
-      {:slugify, "~> 1.3"}
+      {:slugify, "~> 1.3"},
+      {:pow, "~> 1.0.20"}
     ]
   end
 

@@ -1,6 +1,9 @@
 defmodule ChitChatWeb.Router do
   use ChitChatWeb, :router
   use Kaffy.Routes, scope: "/admin"
+  use Pow.Phoenix.Router
+  use Pow.Extension.Phoenix.Router,
+    extensions: [PowResetPassword, PowEmailConfirmation]
   # , pipe_through: [:some_plug, :authenticate]
 
   pipeline :browser do
@@ -16,8 +19,20 @@ defmodule ChitChatWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", ChitChatWeb do
+  pipeline :protected do
+    plug Pow.Plug.RequireAuthenticated,
+      error_handler: Pow.Phoenix.PlugErrorHandler
+  end
+
+  scope "/" do
     pipe_through :browser
+
+    pow_routes()
+    pow_extension_routes()
+  end
+
+  scope "/", ChitChatWeb do
+    pipe_through [:browser, :protected]
 
     get "/", PageController, :index
     get "/login", SessionController, :new
