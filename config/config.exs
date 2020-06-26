@@ -27,9 +27,9 @@ config :chit_chat, :pow,
   user: ChitChat.Accounts.Account,
   repo: ChitChat.Repo,
   extensions: [PowResetPassword, PowEmailConfirmation],
-  # controller_callbacks: Pow.Extension.Phoenix.ControllerCallbacks
+  controller_callbacks: Pow.Extension.Phoenix.ControllerCallbacks,
   mailer_backend: ChitChatWeb.Pow.Mailer,
-  web_mailer_module: ChitChatWeb
+  web_module: ChitChatWeb
 
 # Configures Elixir's Logger
 config :logger, :console,

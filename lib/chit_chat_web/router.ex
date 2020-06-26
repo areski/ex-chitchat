@@ -32,7 +32,7 @@ defmodule ChitChatWeb.Router do
   end
 
   scope "/", ChitChatWeb do
-    pipe_through [:browser, :protected]
+    pipe_through [:browser]
 
     get "/", PageController, :index
     get "/login", SessionController, :new
